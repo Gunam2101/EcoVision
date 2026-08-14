@@ -1,0 +1,233 @@
+// Prisma Schema for EcoVision AI Microservices Backend API
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleName {
+  ADMIN
+  RESEARCHER
+  USER
+}
+
+enum DetectionSource {
+  WEBCAM
+  IMAGE_UPLOAD
+  BATCH_PROCESS
+}
+
+enum WasteCategory {
+  PLASTIC
+  GLASS
+  METAL
+  PAPER
+  CARDBOARD
+  ORGANIC
+  E_WASTE
+  HAZARDOUS
+  TRASH
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        RoleName @unique @default(USER)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users User[]
+
+  @@map("roles")
+}
+
+model User {
+  id                    String    @id @default(uuid())
+  email                 String    @unique
+  passwordHash          String
+  fullName              String
+  avatarUrl             String?
+  roleId                String
+  recyclingScore        Int       @default(0)
+  totalScans            Int       @default(0)
+  totalCo2SavedKg       Float     @default(0.0)
+  isVerified            Boolean   @default(false)
+  otpCode               String?
+  otpExpiresAt          DateTime?
+  resetPasswordToken    String?
+  resetPasswordExpiresAt DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  role             Role               @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  sessions         Session[]
+  detections       DetectionHistory[]
+  images           Image[]
+  analytics        Analytics[]
+  reports          Report[]
+  notifications    Notification[]
+  feedback         Feedback[]
+  activityLogs     ActivityLog[]
+
+  @@map("users")
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  userId           String
+  refreshTokenHash String
+  userAgent        String?
+  ipAddress        String?
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model DetectionHistory {
+  id               String          @id @default(uuid())
+  userId           String?
+  source           DetectionSource @default(WEBCAM)
+  imageUrl         String?
+  totalObjects     Int             @default(0)
+  recyclableCount  Int             @default(0)
+  ecoScore         Int             @default(0)
+  totalCo2SavedKg  Float           @default(0.0)
+  processingTimeMs Float           @default(0.0)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  user            User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  detectedObjects DetectedObject[]
+  images          Image[]
+
+  @@map("detection_history")
+}
+
+model DetectedObject {
+  id           String        @id @default(uuid())
+  detectionId  String
+  label        WasteCategory
+  confidence   Float
+  boxX         Float
+  boxY         Float
+  boxWidth     Float
+  boxHeight    Float
+  recyclable   Boolean       @default(true)
+  co2SavingsKg Float         @default(0.0)
+  createdAt    DateTime      @default(now())
+
+  detection DetectionHistory @relation(fields: [detectionId], references: [id], onDelete: Cascade)
+
+  @@map("detected_objects")
+}
+
+model Image {
+  id            String   @id @default(uuid())
+  userId        String?
+  detectionId   String?
+  storageUrl    String
+  publicId      String?
+  fileSizeBytes Int?
+  mimeType      String?
+  createdAt     DateTime @default(now())
+
+  user      User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  detection DetectionHistory? @relation(fields: [detectionId], references: [id], onDelete: SetNull)
+
+  @@map("images")
+}
+
+model Analytics {
+  id              String   @id @default(uuid())
+  userId          String
+  date            DateTime
+  totalDetections Int      @default(0)
+  plasticCount    Int      @default(0)
+  glassCount      Int      @default(0)
+  metalCount      Int      @default(0)
+  paperCount      Int      @default(0)
+  organicCount    Int      @default(0)
+  trashCount      Int      @default(0)
+  totalCo2SavedKg Float    @default(0.0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("analytics")
+}
+
+model Report {
+  id         String   @id @default(uuid())
+  userId     String
+  title      String
+  reportType String
+  fileUrl    String?
+  status     String   @default("COMPLETED")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("INFO")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  userId    String
+  rating    Int
+  message   String
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("feedback")
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  ipAddress String?
+  userAgent String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("activity_logs")
+}
+
+model Setting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("settings")
+}

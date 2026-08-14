@@ -1,0 +1,21 @@
+{
+  "name": "ecovision-ai-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EcoVision AI - Production-Ready Smart Waste Management & Recycling Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:all": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\" \"npm run dev --prefix ai-service\"",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "db:migrate": "npm run db:migrate --prefix backend",
+    "db:seed": "npm run db:seed --prefix backend",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d --build",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "EcoVision Team",
+  "license": "MIT"
+}

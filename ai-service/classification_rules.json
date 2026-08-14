@@ -1,0 +1,59 @@
+{
+  "categories": [
+    "Reusable",
+    "Non-Reusable",
+    "Organic",
+    "Electronic Waste",
+    "Hazardous",
+    "Unknown"
+  ],
+  "rules": {
+    "person": { "name": "Person", "category": "Unknown", "reusable": false, "co2SavingsKg": 0.00 },
+    "cell phone": { "name": "Mobile Phone", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 2.50 },
+    "laptop": { "name": "Laptop", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 3.50 },
+    "mouse": { "name": "Computer Mouse", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 0.70 },
+    "keyboard": { "name": "Keyboard", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 1.10 },
+    "remote": { "name": "Remote / Charger", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 0.80 },
+    "tv": { "name": "Television / Monitor", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 4.50 },
+    "microwave": { "name": "Microwave Appliance", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 5.00 },
+    "oven": { "name": "Oven Appliance", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 8.00 },
+    "toaster": { "name": "Toaster", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 1.50 },
+    "refrigerator": { "name": "Refrigerator", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 12.00 },
+    "clock": { "name": "Clock / Timer", "category": "Electronic Waste", "reusable": true, "co2SavingsKg": 0.50 },
+
+    "bottle": { "name": "Plastic / Water Bottle", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.85 },
+    "wine glass": { "name": "Glass Bottle / Jar", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.75 },
+    "cup": { "name": "Reusable Cup / Mug", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.45 },
+    "bowl": { "name": "Food Container / Bowl", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.50 },
+    "can": { "name": "Metal Can / Tin", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.65 },
+    "backpack": { "name": "Backpack", "category": "Reusable", "reusable": true, "co2SavingsKg": 1.50 },
+    "handbag": { "name": "Handbag / Tote", "category": "Reusable", "reusable": true, "co2SavingsKg": 1.20 },
+    "suitcase": { "name": "Suitcase", "category": "Reusable", "reusable": true, "co2SavingsKg": 2.00 },
+    "book": { "name": "Book / Paper", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.40 },
+    "scissors": { "name": "Scissors", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.50 },
+    "umbrella": { "name": "Umbrella", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.80 },
+    "tie": { "name": "Clothes / Fabric", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.60 },
+
+    "apple": { "name": "Apple Scrap", "category": "Organic", "reusable": false, "co2SavingsKg": 0.15 },
+    "banana": { "name": "Banana Peel", "category": "Organic", "reusable": false, "co2SavingsKg": 0.15 },
+    "orange": { "name": "Orange Peel", "category": "Organic", "reusable": false, "co2SavingsKg": 0.15 },
+    "broccoli": { "name": "Vegetable Scrap", "category": "Organic", "reusable": false, "co2SavingsKg": 0.20 },
+    "carrot": { "name": "Vegetable Scrap", "category": "Organic", "reusable": false, "co2SavingsKg": 0.15 },
+    "sandwich": { "name": "Food Waste", "category": "Organic", "reusable": false, "co2SavingsKg": 0.25 },
+    "donut": { "name": "Food Waste", "category": "Organic", "reusable": false, "co2SavingsKg": 0.20 },
+    "cake": { "name": "Food Waste", "category": "Organic", "reusable": false, "co2SavingsKg": 0.20 },
+    "potted plant": { "name": "Organic Plant", "category": "Organic", "reusable": true, "co2SavingsKg": 0.50 },
+
+    "battery": { "name": "Chemical Battery", "category": "Hazardous", "reusable": false, "co2SavingsKg": 0.00 },
+    "light bulb": { "name": "Light Bulb", "category": "Hazardous", "reusable": false, "co2SavingsKg": 0.00 },
+
+    "chair": { "name": "Furniture Chair", "category": "Reusable", "reusable": true, "co2SavingsKg": 3.00 },
+    "couch": { "name": "Furniture Sofa", "category": "Reusable", "reusable": true, "co2SavingsKg": 8.00 },
+    "bed": { "name": "Furniture Bed", "category": "Reusable", "reusable": true, "co2SavingsKg": 10.00 },
+    "dining table": { "name": "Table", "category": "Reusable", "reusable": true, "co2SavingsKg": 5.00 },
+
+    "fork": { "name": "Cutlery Fork", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.20 },
+    "knife": { "name": "Cutlery Knife", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.20 },
+    "spoon": { "name": "Cutlery Spoon", "category": "Reusable", "reusable": true, "co2SavingsKg": 0.20 }
+  }
+}
